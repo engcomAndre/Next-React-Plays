@@ -5,14 +5,14 @@ import IfElse from "./IfElse"
 
 
 interface PerguntaProps {
+    indice: number
     texto: string
     resposta: string
+    aberta: boolean
+    alternarVisibilidade: (indice: number) => void
+
 }
 export default function Pergunta(props: PerguntaProps){
-
-    const [aberta, setAberta] = useState<boolean>(false)
-
-    
 
     return (
         <div className={`
@@ -21,15 +21,15 @@ export default function Pergunta(props: PerguntaProps){
          cursor-pointer overflow-hidden 
          `}>
             <div className={`flex justify-between bg-zinc-800 p-5 cursor-pointer select-none `}
-            onClick={() => setAberta(!aberta)}>
+            onClick={() => props.alternarVisibilidade(props.indice)}>
                 <span>{props.texto}</span>
-                <IfElse teste={aberta}>
+                <IfElse teste={props.aberta}>
                     <IconChevronDown />
                     <IconChevronUp />
                 </IfElse>
             </div>
-            <If teste={aberta}>
-            {aberta && (
+            <If teste={props.aberta}>
+            {props.aberta && (
                 <div className={`p-5`}>
                     {props.resposta}
                 </div>
